@@ -14,17 +14,6 @@ export default function Login({ history }) {
     setPasswordValue(value);
   };
 
-  const enableButton = () => {
-    const SIX = 6;
-    const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/; // /\S+@\S+.com/;
-    const validateEmail = emailRegex.test(emailValue);
-    if (passowordValue.length > SIX && validateEmail) {
-      setButtonON(false);
-    } else {
-      setButtonON(true);
-    }
-  };
-
   const clickButton = () => {
     const user = { email: emailValue };
     localStorage.setItem('mealsToken', 1);
@@ -34,7 +23,14 @@ export default function Login({ history }) {
   };
 
   useEffect(() => {
-    enableButton();
+    const SIX = 6;
+    const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/; // /\S+@\S+.com/;
+    const validateEmail = emailRegex.test(emailValue);
+    if (passowordValue.length > SIX && validateEmail) {
+      setButtonON(false);
+    } else {
+      setButtonON(true);
+    }
   }, [emailValue, passowordValue]);
 
   return (
