@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 
 export default function Login({ history }) {
@@ -65,3 +66,9 @@ export default function Login({ history }) {
     </div>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
