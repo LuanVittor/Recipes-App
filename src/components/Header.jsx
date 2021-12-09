@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import ApiContext from '../Context/ApiContext';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 export default function Header() {
   const history = useHistory();
   const [searchBar, setSerchBar] = useState(false);
+  const [radioValue, setRadioValue] = useState();
+
+  const {
+    selectRadio,
+    handleInput,
+    searchInputValue,
+    getPathName,
+  } = useContext(ApiContext);
 
   const pushProfile = () => (
     history.push('/perfil')
   );
-
-  // const getPath = () => {
-  //   const name = history.location.pathname.split('/');
-  //   return name[1].charAt(0).toUpperCase() + name[1].slice(1);
-  // };
 
   const completeHeader = (title) => (
     <div>
@@ -25,7 +29,7 @@ export default function Header() {
           alt="profile"
         />
       </button>
-      <h1 data-testid="page-title">{ title }</h1>
+      <h1 data-testid="page-title">{title}</h1>
       <button type="button" onClick={ () => setSerchBar(!searchBar) }>
         <img
           data-testid="search-top-btn"
@@ -90,10 +94,66 @@ export default function Header() {
     }
   };
 
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setRadioValue(value);
+  };
+
+  useEffect(() => {
+    selectRadio(radioValue);
+  }, [radioValue, selectRadio]);
+
   return (
     <header>
-      { renderHeader() }
-      {(searchBar) && <input data-testid="search-input" />}
+      {renderHeader()}
+      {(searchBar)
+        && (
+          <div>
+            <input
+              data-testid="search-input"
+              onChange={ handleInput }
+              value={ searchInputValue }
+            />
+            <label htmlFor="Ingrediente">
+              Ingrediente
+              <input
+                type="radio"
+                value="Ingrediente"
+                data-testid="ingredient-search-radio"
+                name="radio"
+                onChange={ handleChange }
+              />
+            </label>
+
+            <label htmlFor="Nome">
+              Nome
+              <input
+                type="radio"
+                value="Nome"
+                data-testid="name-search-radio"
+                name="radio"
+                onChange={ handleChange }
+              />
+            </label>
+            <label htmlFor="Primeira Letra">
+              Primeira Letra
+              <input
+                type="radio"
+                value="Primeira Letra"
+                data-testid="first-letter-search-radio"
+                name="radio"
+                onChange={ handleChange }
+              />
+            </label>
+            <button
+              type="button"
+              onClick={ getPathName }
+              data-testid="exec-search-btn"
+            >
+              Buscar
+            </button>
+          </div>
+        )}
     </header>
   );
 }
