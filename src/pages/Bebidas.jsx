@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import ApiContext from '../Context/ApiContext';
 
@@ -36,6 +37,7 @@ export default function Bebidas() {
     <div>
       <Header />
       {renderDrink()}
+      <Footer />
     </div>
   );
 }
