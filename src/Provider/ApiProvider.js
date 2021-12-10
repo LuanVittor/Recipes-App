@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ApiContext from '../Context/ApiContext';
 
@@ -56,20 +56,16 @@ export default function ApiProvider({ children }) {
   const getPathName = () => {
     if (history.location.pathname === '/comidas') {
       reqFoodApi();
-      if (returnApi.length === 0) {
-        return (
-          global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-        );
-      }
     } if (history.location.pathname === '/bebidas') {
       reqDrinkApi();
-      if (returnApi.length === 0) {
-        return (
-          global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-        );
-      }
     }
   };
+
+  useEffect(() => {
+    if (!returnApi) {
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }, [returnApi]);
 
   const myContext = {
     searchInputValue,
