@@ -16,6 +16,8 @@ import ExplorarBebidasIngredientes from './pages/ExplorarBebidasIngredientes';
 import ComidasID from './pages/ComidasID';
 import ApiProvider from './Provider/ApiProvider';
 import BebidasId from './pages/BebidasId';
+import ComidasProgress from './pages/ComidasProgress';
+import BebidasProgress from './pages/BebidasProgress';
 
 export default function App() {
   return (
@@ -28,8 +30,8 @@ export default function App() {
           <Route exact path="/perfil" component={ Perfil } />
           <Route exact path="/comidas/:id" component={ ComidasID } />
           <Route exact path="/bebidas/:id" component={ BebidasId } />
-          <Route exact path="/comidas/:id/in-progress" />
-          <Route exact path="/bebidas/:id/in-progress" />
+          <Route exact path="/comidas/:id/in-progress" component={ ComidasProgress } />
+          <Route exact path="/bebidas/:id/in-progress" component={ BebidasProgress } />
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
           <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
