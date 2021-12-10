@@ -13,7 +13,9 @@ import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import ExplorarComidasArea from './pages/ExplorarComidasArea';
 import ExplorarBebidasIngredientes from './pages/ExplorarBebidasIngredientes';
+import ComidasID from './pages/ComidasID';
 import ApiProvider from './Provider/ApiProvider';
+import BebidasId from './pages/BebidasId';
 
 export default function App() {
   return (
@@ -24,8 +26,8 @@ export default function App() {
           <Route exact path="/comidas" component={ Comidas } />
           <Route exact path="/bebidas" component={ Bebidas } />
           <Route exact path="/perfil" component={ Perfil } />
-          <Route exact path="/comidas/:id" />
-          <Route exact path="/bebidas/:id" />
+          <Route exact path="/comidas/:id" component={ ComidasID } />
+          <Route exact path="/bebidas/:id" component={ BebidasId } />
           <Route exact path="/comidas/:id/in-progress" />
           <Route exact path="/bebidas/:id/in-progress" />
           <Route exact path="/explorar" component={ Explorar } />
@@ -46,7 +48,6 @@ export default function App() {
           <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
         </Switch>
       </ApiProvider>
-
     </div>
   );
 }

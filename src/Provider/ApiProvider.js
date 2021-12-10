@@ -21,15 +21,15 @@ export default function ApiProvider({ children }) {
     if (selectAPI === 'Ingrediente') {
       return fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInputValue}`)
         .then((resp) => resp.json())
-        .then((r) => setReturnApi(r.meals));
+        .then((r) => setReturnApi(r.drinks));
     } if (selectAPI === 'Nome') {
       return fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInputValue}`)
         .then((resp) => resp.json())
-        .then((r) => setReturnApi(r.meals));
+        .then((r) => setReturnApi(r.drinks));
     } if (selectAPI === 'Primeira Letra' && searchInputValue.length === 1) {
       return fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInputValue}`)
         .then((resp) => resp.json())
-        .then((r) => setReturnApi(r.meals));
+        .then((r) => setReturnApi(r.drinks));
     } if (searchInputValue.length > 1) {
       return global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
@@ -55,22 +55,28 @@ export default function ApiProvider({ children }) {
 
   const getPathName = () => {
     if (history.location.pathname === '/comidas') {
-      return reqFoodApi();
+      reqFoodApi();
+      if (returnApi.length === 0) {
+        return (
+          global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+        );
+      }
     } if (history.location.pathname === '/bebidas') {
-      return reqDrinkApi();
+      reqDrinkApi();
+      if (returnApi.length === 0) {
+        return (
+          global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+        );
+      }
     }
   };
 
-  const checkArray = () => (
-    (returnApi.length === 1) ? console.log('teste') : null
-  );
-
   const myContext = {
     searchInputValue,
+    returnApi,
     handleInput,
     selectRadio,
     getPathName,
-    checkArray,
   };
   return (
     <ApiContext.Provider value={ myContext }>
