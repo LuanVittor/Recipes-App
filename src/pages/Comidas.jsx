@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -6,7 +6,11 @@ import ApiContext from '../Context/ApiContext';
 
 export default function Comidas() {
   const history = useHistory();
-  const { returnApi } = useContext(ApiContext);
+  const { returnApi, reqFoodApi } = useContext(ApiContext);
+
+  useEffect(() => {
+    reqFoodApi();
+  }, []);
 
   const renderFood = () => {
     const TWELVE = 12;

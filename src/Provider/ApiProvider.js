@@ -5,7 +5,7 @@ import ApiContext from '../Context/ApiContext';
 
 export default function ApiProvider({ children }) {
   const history = useHistory();
-  const [selectAPI, setSelectAPI] = useState();
+  const [selectAPI, setSelectAPI] = useState('Nome');
   const [searchInputValue, setSearchInputValue] = useState('');
   const [returnApi, setReturnApi] = useState([]);
 
@@ -73,6 +73,8 @@ export default function ApiProvider({ children }) {
     handleInput,
     selectRadio,
     getPathName,
+    reqFoodApi,
+    reqDrinkApi,
   };
   return (
     <ApiContext.Provider value={ myContext }>

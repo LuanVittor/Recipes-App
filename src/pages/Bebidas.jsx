@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -6,7 +6,11 @@ import ApiContext from '../Context/ApiContext';
 
 export default function Bebidas() {
   const history = useHistory();
-  const { returnApi } = useContext(ApiContext);
+  const { returnApi, reqDrinkApi } = useContext(ApiContext);
+
+  useEffect(() => {
+    reqDrinkApi();
+  }, [reqDrinkApi]);
 
   const renderDrink = () => {
     const TWELVE = 12;
