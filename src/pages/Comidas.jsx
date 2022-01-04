@@ -1,27 +1,41 @@
-import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import ApiContext from '../Context/ApiContext';
+import RenderFood from '../services/RenderFood';
 
 export default function Comidas() {
-  const history = useHistory();
-  const { returnApi, reqFoodApi } = useContext(ApiContext);
+  const { reqFoodApi } = useContext(ApiContext);
+  const [categories, setCategories] = useState([]);
+  const [filterReturn, setFilterReturn] = useState([]);
+  const [filterTrueOrFalse, setFilterTrueOrFalse] = useState(false);
 
-  useEffect(() => {
-    reqFoodApi();
-  }, []);
+  const getCategories = () => {
+    fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+      .then((resp) => resp.json())
+      .then((rr) => setCategories(rr.meals));
+  };
 
-  const renderFood = () => {
+  const filterButton = (param) => (
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${param}`)
+      .then((resp) => resp.json())
+      .then((r) => {
+        if (filterReturn === r.meals) {
+          setFilterTrueOrFalse(false);
+        } else {
+          setFilterReturn(r.meals);
+          setFilterTrueOrFalse(true);
+        }
+      })
+  );
+
+  const renderFiltered = () => {
     const TWELVE = 12;
-    if (!returnApi) {
-      return null;
-    } if (returnApi.length === 1) {
-      history.push(`/comidas/${returnApi[0].idMeal}`);
-    } if (returnApi.length > 1) {
-      return returnApi.map((elem, index) => {
-        if (index < TWELVE) {
-          return (
+    return filterReturn.map((elem, index) => {
+      if (index < TWELVE) {
+        return (
+          <Link to={ `/comidas/${filterReturn[index].idMeal}` }>
             <div data-testid={ `${index}-recipe-card` } key={ index }>
               <img
                 data-testid={ `${index}-card-img` }
@@ -30,17 +44,44 @@ export default function Comidas() {
               />
               <h3 data-testid={ `${index}-card-name` }>{ elem.strMeal }</h3>
             </div>
-          );
-        }
-        return null;
-      });
-    }
+          </Link>
+        );
+      }
+      return null;
+    });
   };
+
+  useEffect(() => {
+    reqFoodApi();
+    getCategories();
+  }, []);
 
   return (
     <div>
       <Header />
-      {renderFood()}
+      {categories.map((elem, i) => {
+        const FIVE = 5;
+        if (i < FIVE) {
+          return (
+            <button
+              type="button"
+              onClick={ () => filterButton(elem.strCategory) }
+              data-testid={ `${elem.strCategory}-category-filter` }
+            >
+              { elem.strCategory }
+            </button>
+          );
+        }
+        return null;
+      })}
+      <button
+        type="button"
+        onClick={ () => setFilterTrueOrFalse(false) }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
+      {filterTrueOrFalse ? renderFiltered() : RenderFood()}
       <Footer />
     </div>
   );
