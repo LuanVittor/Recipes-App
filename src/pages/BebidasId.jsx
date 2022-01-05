@@ -25,7 +25,7 @@ export default function BebidasId(id) {
       {console.log(responseDrinks.length === 0)}
       {(responseDrinks.length === 0) ? null : (
         <div>
-          <img src={ drinks[0].strDrinkThumb } alt="Food" data-testid="recipe-photo" />
+          <img src={ drinks[0].strDrinkThumb } alt="Drink" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{drinks[0].strDrink}</h1>
           <p data-testid="recipe-category">{drinks[0].strCategory}</p>
           <button type="button" data-testid="share-btn">Compartilhar</button>
