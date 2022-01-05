@@ -35,7 +35,9 @@ export default function Comidas() {
     return filterReturn.map((elem, index) => {
       if (index < TWELVE) {
         return (
-          <Link to={ `/comidas/${filterReturn[index].idMeal}` }>
+          <Link
+            to={ `/comidas/${filterReturn[index].idMeal}` }
+          >
             <div data-testid={ `${index}-recipe-card` } key={ index }>
               <img
                 data-testid={ `${index}-card-img` }
