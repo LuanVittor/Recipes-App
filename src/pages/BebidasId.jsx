@@ -24,6 +24,7 @@ export default function BebidasId(id) {
     <div>
       {(responseDrinks.length === 0) ? null : (
         <div>
+          {console.log(drinks[0])}
           <img src={ drinks[0].strDrinkThumb } alt="Drink" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{drinks[0].strDrink}</h1>
           <button type="button" data-testid="share-btn">Compartilhar</button>
