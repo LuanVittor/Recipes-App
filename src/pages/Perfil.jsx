@@ -8,9 +8,11 @@ export default function Perfil() {
 
   const getLocal = () => {
     const localStorager = JSON.parse(localStorage.getItem('user'));
-    return (
-      <p data-testid="profile-email">{localStorager.email}</p>
-    );
+    if (localStorager) {
+      return (
+        <p data-testid="profile-email">{localStorager.email}</p>
+      );
+    }
   };
 
   const cleanLocalStorage = () => {
