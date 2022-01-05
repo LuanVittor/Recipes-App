@@ -14,7 +14,7 @@ export default function RenderDrink() {
     return returnApi.map((elem, index) => {
       if (index < TWELVE) {
         return (
-          <Link to={ `/bebidas/${returnApi[0].idDrink}` }>
+          <Link to={ `/bebidas/${returnApi[index].idDrink}` }>
             <div data-testid={ `${index}-recipe-card` } key={ index }>
               <img
                 data-testid={ `${index}-card-img` }
