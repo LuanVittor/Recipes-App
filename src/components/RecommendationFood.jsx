@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Recommendations() {
+export default function RecommendationsFood() {
   const SIX = 6;
   const [recommendations, setRecommendations] = useState([]);
 

@@ -21,7 +21,7 @@ export default function RenderDrink() {
                 src={ elem.strDrinkThumb }
                 alt="thumb"
               />
-              <h3 data-testid={ `${index}-card-name` }>{ elem.strDrink }</h3>
+              <h3 data-testid={ `${index}-card-name` }>{elem.strDrink}</h3>
             </div>
           </Link>
         );

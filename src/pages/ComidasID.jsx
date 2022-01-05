@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import Recommendations from '../components/RecommendationFood';
+import RecommendationsFood from '../components/RecommendationFood';
 import '../css/IniciarReceita.css';
 
 export default function ComidasID(id) {
@@ -57,7 +57,7 @@ export default function ComidasID(id) {
           />
           <div>
             <h3>Recomendadas</h3>
-            <Recommendations />
+            <RecommendationsFood />
           </div>
           <button
             type="button"
