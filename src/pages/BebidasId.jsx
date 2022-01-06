@@ -1,14 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import FavoriteButton from '../components/FavoriteButton';
 import Loading from '../components/Loading';
 import RecommendationDrink from '../components/RecommendationDrink';
+import ShareButton from '../components/ShareButton';
 import '../css/IniciarReceita.css';
 
 export default function BebidasId(id) {
   const history = useHistory();
   const [responseDrinks, setResponseDrinks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [textButton, setTextButton] = useState('Iniciar Receita');
   const MIL = 1000;
+  const ingredients = [];
+
+  const checkLocal = async () => {
+    let getLocal = await JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!getLocal || getLocal.length === 0) {
+      getLocal = { cocktails: {}, meals: {} };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
+    }
+    const keys = Object.keys(getLocal.cocktails);
+    if (keys.some((elem) => elem === id.match.params.id)) {
+      setTextButton('Continuar Receita');
+    }
+  };
+
+  const startRecipe = () => {
+    const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const inProgressRecipes = {
+      ...getLocal,
+      cocktails: { ...getLocal.cocktails, [id.match.params.id]: ingredients } };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    history.push(`${id.match.params.id}/in-progress`);
+  };
 
   useEffect(() => {
     (async () => {
@@ -19,6 +44,7 @@ export default function BebidasId(id) {
         setLoading(false);
       }, MIL);
     })();
+    checkLocal();
   }, []);
 
   const { drinks } = responseDrinks;
@@ -28,21 +54,20 @@ export default function BebidasId(id) {
 
   return (
     <div>
-      {console.log(responseDrinks.length === 0)}
       {(responseDrinks.length !== 0 && responseDrinks) && (
         <div>
-          {console.log(drinks[0])}
           <img src={ drinks[0].strDrinkThumb } alt="Drink" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{drinks[0].strDrink}</h1>
           <p data-testid="recipe-category">{drinks[0].strAlcoholic}</p>
-          <button type="button" data-testid="share-btn">Compartilhar</button>
-          <button type="button" data-testid="favorite-btn">Favoritar</button>
+          <ShareButton pathname={ id.location.pathname } />
+          <FavoriteButton apiRetur={ responseDrinks.drinks } />
           <div>
             <h3>Ingredientes</h3>
             {(Object.entries(drinks[0]).filter((elem) => elem[0].includes('Ingredient')
             || elem[0].includes('Measure'))
               .map((elem, index, arr) => {
                 if (elem[1] !== null && elem[1] !== '' && index < FIFTEEN) {
+                  ingredients.push(elem[1]);
                   return (
                     <p
                       data-testid={ `${index}-ingredient-name-and-measure` }
@@ -63,9 +88,9 @@ export default function BebidasId(id) {
             type="button"
             className="start-recipe"
             data-testid="start-recipe-btn"
-            onClick={ () => history.push(`${id.match.params.id}/in-progress`) }
+            onClick={ () => startRecipe() }
           >
-            Iniciar Receita
+            {textButton}
           </button>
         </div>
       )}
