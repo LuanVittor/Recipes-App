@@ -66,6 +66,7 @@ export default function Comidas() {
         if (i < FIVE) {
           return (
             <button
+              key={ i }
               type="button"
               onClick={ () => filterButton(elem.strCategory) }
               data-testid={ `${elem.strCategory}-category-filter` }

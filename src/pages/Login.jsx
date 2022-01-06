@@ -16,9 +16,13 @@ export default function Login({ history }) {
 
   const clickButton = () => {
     const user = { email: emailValue };
+    const inProgressRecipes = { cocktails: {}, meals: {} };
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    const favoriteRecipes = [];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
     return history.push('/comidas');
   };
 

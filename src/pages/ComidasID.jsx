@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecommendationsFood from '../components/RecommendationFood';
 import '../css/IniciarReceita.css';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 export default function ComidasID(id) {
   const history = useHistory();
   const [responseFood, setResponseFood] = useState([]);
+  const [textButton, setTextButton] = useState('Iniciar Receita');
+  const ingredients = [];
 
   const returnById = () => (
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id.match.params.id}`)
@@ -13,8 +17,30 @@ export default function ComidasID(id) {
       .then((r) => setResponseFood(r))
   );
 
+  const checkLocal = async () => {
+    let getLocal = await JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!getLocal || getLocal.length === 0) {
+      getLocal = { cocktails: {}, meals: {} };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
+    }
+    const keys = Object.keys(getLocal.meals);
+    if (keys.some((elem) => elem === id.match.params.id)) {
+      setTextButton('Continuar Receita');
+    }
+  };
+
+  const startRecipe = () => {
+    history.push(`${id.match.params.id}/in-progress`);
+    const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const inProgressRecipes = {
+      ...getLocal,
+      meals: { ...getLocal.meals, [id.match.params.id]: ingredients } };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  };
+
   useEffect(() => {
     returnById();
+    checkLocal();
   }, []);
 
   const { meals } = responseFood;
@@ -27,14 +53,15 @@ export default function ComidasID(id) {
           <img src={ meals[0].strMealThumb } alt="Food" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{meals[0].strMeal}</h1>
           <p data-testid="recipe-category">{meals[0].strCategory}</p>
-          <button type="button" data-testid="share-btn">Compartilhar</button>
-          <button type="button" data-testid="favorite-btn">Favoritar</button>
+          <ShareButton pathname={ id.location.pathname } />
+          <FavoriteButton apiRetur={ responseFood.meals } />
           <div>
             <h3>Ingredientes</h3>
             {(Object.entries(meals[0]).filter((elem) => elem[0].includes('Ingredient')
             || elem[0].includes('Measure'))
               .map((elem, index, arr) => {
                 if (elem[1] !== null && elem[1] !== '' && index < TWENTY) {
+                  ingredients.push(elem[1]);
                   return (
                     <p
                       data-testid={ `${index}-ingredient-name-and-measure` }
@@ -63,9 +90,9 @@ export default function ComidasID(id) {
             type="button"
             className="start-recipe"
             data-testid="start-recipe-btn"
-            onClick={ () => history.push(`${id.match.params.id}/in-progress`) }
+            onClick={ () => startRecipe() }
           >
-            Iniciar Receita
+            {textButton}
           </button>
         </div>
       )}
