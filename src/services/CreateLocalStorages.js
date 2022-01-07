@@ -24,12 +24,14 @@ const helperDoneLOcal = (param, doneRecipes) => {
     name: param.strMeal || param.strDrink,
     image: param.strMealThumb || param.strDrinkThumb,
     doneDate: Date(),
-    tags: param.strTags.split(',') || '',
+    tags: (param.strTags) ? param.strTags.split(',') : [],
+
   }];
   localStorage.setItem('doneRecipes', JSON.stringify(newdoneRecipes));
 };
 
 export const createDOneLocalStorage = async (param) => {
+  console.log(param.strTags);
   const doneRecipes = await JSON.parse(localStorage.getItem('doneRecipes'));
   if (!doneRecipes || doneRecipes.length === 0) {
     const newDoneRecipes = [{
@@ -41,7 +43,7 @@ export const createDOneLocalStorage = async (param) => {
       name: param.strMeal || param.strDrink,
       image: param.strMealThumb || param.strDrinkThumb,
       doneDate: Date(),
-      tags: param.strTags.split(',') || [],
+      tags: (param.strTags) ? param.strTags.split(',') : [],
     }];
     localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
   } else {

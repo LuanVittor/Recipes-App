@@ -50,7 +50,7 @@ export default function ReceitasFavoritas() {
       >
         Drinks
       </button>
-      {(infoToRender.length !== 0 && infoToRender !== undefined) && (
+      {(infoToRender !== null && infoToRender.length !== 0) && (
         <div>
           {infoToRender.map((elem, i) => (
             <div key={ elem.id }>
