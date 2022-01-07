@@ -21,7 +21,6 @@ export default function ShareButton(rota) {
         alt="share"
         type="image"
         data-testid={ rota.dataTestid }
-        // data-testid="share-btn"
         src={ shareIcon }
         onClick={ () => shareButton() }
       />

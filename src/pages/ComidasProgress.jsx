@@ -83,7 +83,7 @@ export default function ComidasProgress(id) {
             { returnApi.meals[0].strMeals }
           </h1>
           <div>
-            <FavoriteButton apiRetur={ returnApi.meals } />
+            <FavoriteButton dataTestId="favorite-btn" apiRetur={ returnApi.meals } />
           </div>
           <div>
             <ShareButton

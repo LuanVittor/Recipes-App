@@ -10,7 +10,7 @@ export default function HeartButton(param) {
         type="image"
         src={ (param.favorite) ? fullHeart : emptyHeart }
         onClick={ () => param.addFavorite() }
-        data-testid="favorite-btn"
+        data-testid={ param.dataTestId }
       />
     </div>
   );

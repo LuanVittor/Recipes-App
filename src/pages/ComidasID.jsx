@@ -48,7 +48,7 @@ export default function ComidasID(id) {
           <h1 data-testid="recipe-title">{meals[0].strMeal}</h1>
           <p data-testid="recipe-category">{meals[0].strCategory}</p>
           <ShareButton dataTestid="share-btn" pathname={ id.location.pathname } />
-          <FavoriteButton apiRetur={ responseFood.meals } />
+          <FavoriteButton dataTestId="favorite-btn" apiRetur={ responseFood.meals } />
           <div>
             <h3>Ingredientes</h3>
             {(Object.entries(meals[0]).filter((elem) => elem[0].includes('Ingredient')
