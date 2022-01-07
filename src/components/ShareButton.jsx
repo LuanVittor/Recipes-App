@@ -17,13 +17,13 @@ export default function ShareButton(rota) {
 
   return (
     <div>
-      <button
-        type="button"
+      <input
+        alt="share"
+        type="image"
         data-testid="share-btn"
+        src={ shareIcon }
         onClick={ () => shareButton() }
-      >
-        <img src={ shareIcon } alt="img" />
-      </button>
+      />
       {(clipboard) && <p>Link copiado!</p>}
     </div>
   );
