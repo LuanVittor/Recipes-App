@@ -13,3 +13,38 @@ export const createFavoriteLocalStorage = async () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteLocal));
   }
 };
+
+const helperDoneLOcal = (param, doneRecipes) => {
+  const newdoneRecipes = [...doneRecipes, {
+    id: param.idMeal || param.idDrink,
+    type: (param.idMeal) ? 'comida' : 'bebida',
+    area: param.strArea || '',
+    category: param.strCategory,
+    alcoholicOrNot: param.strAlcoholic || '',
+    name: param.strMeal || param.strDrink,
+    image: param.strMealThumb || param.strDrinkThumb,
+    doneDate: Date(),
+    tags: param.strTags.split(',') || '',
+  }];
+  localStorage.setItem('doneRecipes', JSON.stringify(newdoneRecipes));
+};
+
+export const createDOneLocalStorage = async (param) => {
+  const doneRecipes = await JSON.parse(localStorage.getItem('doneRecipes'));
+  if (!doneRecipes || doneRecipes.length === 0) {
+    const newDoneRecipes = [{
+      id: param.idMeal || param.idDrink,
+      type: (param.idMeal) ? 'comida' : 'bebida',
+      area: param.strArea || '',
+      category: param.strCategory,
+      alcoholicOrNot: param.strAlcoholic || '',
+      name: param.strMeal || param.strDrink,
+      image: param.strMealThumb || param.strDrinkThumb,
+      doneDate: Date(),
+      tags: param.strTags.split(',') || [],
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
+  } else {
+    helperDoneLOcal(param, doneRecipes);
+  }
+};

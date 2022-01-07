@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FavoriteButton from '../components/FavoriteButton';
 import ShareButton from '../components/ShareButton';
+import { createDOneLocalStorage } from '../services/CreateLocalStorages';
 
 function test(id) {
   const initialLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -18,6 +19,11 @@ export default function ComidasProgress(id) {
   const [returnApi, setReturnApi] = useState([]);
   const [checkedIngredients, setCheckedIngredients] = useState(test(id));
   const [allIngredients, setAllIngredients] = useState([]);
+
+  const clickButton = () => {
+    createDOneLocalStorage(returnApi.meals[0]);
+    history.push('/receitas-feitas');
+  };
 
   const checkIngredient = ({ target }) => {
     const { name } = target;
@@ -55,12 +61,9 @@ export default function ComidasProgress(id) {
         .filter((elem) => elem[1] !== ''));
 
       if (checkedIngredients.length === allIngredients.length) {
-        console.log('habilitou');
         setIsDisabled(false);
       } else {
-        console.log(allIngredients);
-        console.log(checkedIngredients.length, allIngredients.length);
-        console.log('desabilitou');
+        console.log(returnApi);
         setIsDisabled(true);
       }
     }
@@ -83,7 +86,10 @@ export default function ComidasProgress(id) {
             <FavoriteButton apiRetur={ returnApi.meals } />
           </div>
           <div>
-            <ShareButton pathname={ `/comidas/${id.match.params.id}` } />
+            <ShareButton
+              dataTestid="share-btn"
+              pathname={ `/comidas/${id.match.params.id}` }
+            />
           </div>
           <p data-testid="recipe-category">
             { returnApi.meals[0].strCategory }
@@ -119,7 +125,7 @@ export default function ComidasProgress(id) {
             disabled={ isDisabled }
             data-testid="finish-recipe-btn"
             type="button"
-            onClick={ () => history.push('/receitas-feitas') }
+            onClick={ () => clickButton() }
           >
             Finalizar
           </button>

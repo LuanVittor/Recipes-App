@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FavoriteButton from '../components/FavoriteButton';
 import ShareButton from '../components/ShareButton';
-import { createInProgressRecipes } from '../services/CreateLocalStorages';
+import { createDOneLocalStorage,
+  createInProgressRecipes } from '../services/CreateLocalStorages';
 
 function test(id) {
   const initialLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -18,6 +19,11 @@ export default function BebidasProgress(id) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [returnApi, setReturnApi] = useState([]);
   const [checkedIngredients, setCheckedIngredients] = useState(test(id));
+
+  const clickButton = () => {
+    createDOneLocalStorage(returnApi.drinks[0]);
+    history.push('/receitas-feitas');
+  };
 
   function checkIngredient({ target }) {
     const { name } = target;
@@ -54,13 +60,10 @@ export default function BebidasProgress(id) {
         .filter((elem) => elem[0].includes('Ingredient')))
         .filter((elem) => elem[1] !== null)
         .filter((elem) => elem[1] !== '');
-      console.log('entrou');
       if (checkedIngredients.length === allIngredients.length) {
-        console.log('habilitou');
         setIsDisabled(false);
       } else {
-        console.log(allIngredients);
-        console.log('desabilitou');
+        console.log(returnApi);
         setIsDisabled(true);
       }
     }
@@ -79,7 +82,10 @@ export default function BebidasProgress(id) {
             { returnApi.drinks[0].strDrink }
           </h1>
           <FavoriteButton apiRetur={ returnApi.drinks } />
-          <ShareButton pathname={ `/bebidas/${id.match.params.id}` } />
+          <ShareButton
+            dataTestid="share-btn"
+            pathname={ `/bebidas/${id.match.params.id}` }
+          />
           <p data-testid="recipe-category">
             { returnApi.drinks[0].strCategory }
           </p>
@@ -114,7 +120,7 @@ export default function BebidasProgress(id) {
             disabled={ isDisabled }
             data-testid="finish-recipe-btn"
             type="button"
-            onClick={ () => history.push('/receitas-feitas') }
+            onClick={ () => clickButton() }
           >
             Finalizar
           </button>
