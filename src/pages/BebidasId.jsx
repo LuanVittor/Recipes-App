@@ -5,6 +5,7 @@ import Loading from '../components/Loading';
 import RecommendationDrink from '../components/RecommendationDrink';
 import ShareButton from '../components/ShareButton';
 import '../css/IniciarReceita.css';
+import { createInProgressRecipes } from '../services/CreateLocalStorages';
 
 export default function BebidasId(id) {
   const history = useHistory();
@@ -12,13 +13,11 @@ export default function BebidasId(id) {
   const [loading, setLoading] = useState(true);
   const [textButton, setTextButton] = useState('Iniciar Receita');
   const MIL = 1000;
-  const ingredients = [];
 
   const checkLocal = async () => {
-    let getLocal = await JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const getLocal = await JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!getLocal || getLocal.length === 0) {
-      getLocal = { cocktails: {}, meals: {} };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
+      createInProgressRecipes();
     }
     const keys = Object.keys(getLocal.cocktails);
     if (keys.some((elem) => elem === id.match.params.id)) {
@@ -27,11 +26,6 @@ export default function BebidasId(id) {
   };
 
   const startRecipe = () => {
-    const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const inProgressRecipes = {
-      ...getLocal,
-      cocktails: { ...getLocal.cocktails, [id.match.params.id]: ingredients } };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
     history.push(`${id.match.params.id}/in-progress`);
   };
 
@@ -67,7 +61,6 @@ export default function BebidasId(id) {
             || elem[0].includes('Measure'))
               .map((elem, index, arr) => {
                 if (elem[1] !== null && elem[1] !== '' && index < FIFTEEN) {
-                  ingredients.push(elem[1]);
                   return (
                     <p
                       data-testid={ `${index}-ingredient-name-and-measure` }

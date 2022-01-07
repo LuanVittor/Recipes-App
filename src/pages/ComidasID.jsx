@@ -4,12 +4,12 @@ import RecommendationsFood from '../components/RecommendationFood';
 import '../css/IniciarReceita.css';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
+import { createInProgressRecipes } from '../services/CreateLocalStorages';
 
 export default function ComidasID(id) {
   const history = useHistory();
   const [responseFood, setResponseFood] = useState([]);
   const [textButton, setTextButton] = useState('Iniciar Receita');
-  const ingredients = [];
 
   const returnById = () => (
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id.match.params.id}`)
@@ -18,10 +18,9 @@ export default function ComidasID(id) {
   );
 
   const checkLocal = async () => {
-    let getLocal = await JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const getLocal = await JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!getLocal || getLocal.length === 0) {
-      getLocal = { cocktails: {}, meals: {} };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
+      createInProgressRecipes();
     }
     const keys = Object.keys(getLocal.meals);
     if (keys.some((elem) => elem === id.match.params.id)) {
@@ -31,11 +30,6 @@ export default function ComidasID(id) {
 
   const startRecipe = () => {
     history.push(`${id.match.params.id}/in-progress`);
-    const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const inProgressRecipes = {
-      ...getLocal,
-      meals: { ...getLocal.meals, [id.match.params.id]: ingredients } };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   };
 
   useEffect(() => {
@@ -61,7 +55,6 @@ export default function ComidasID(id) {
             || elem[0].includes('Measure'))
               .map((elem, index, arr) => {
                 if (elem[1] !== null && elem[1] !== '' && index < TWENTY) {
-                  ingredients.push(elem[1]);
                   return (
                     <p
                       data-testid={ `${index}-ingredient-name-and-measure` }

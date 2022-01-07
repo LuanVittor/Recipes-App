@@ -1,28 +1,76 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import FavoriteButton from '../components/FavoriteButton';
+import ShareButton from '../components/ShareButton';
+
+function test(id) {
+  const initialLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (!initialLocal) {
+    return [];
+  }
+  return initialLocal.meals[id.match.params.id] || [];
+}
 
 export default function ComidasProgress(id) {
+  const history = useHistory();
   const [loaded, setLoaded] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
   const [returnApi, setReturnApi] = useState([]);
-  // const [returnRecipes, setReturnRecipes] = useState([]);
+  const [checkedIngredients, setCheckedIngredients] = useState(test(id));
+  const [allIngredients, setAllIngredients] = useState([]);
+
+  const checkIngredient = ({ target }) => {
+    const { name } = target;
+    if (target.checked) {
+      setCheckedIngredients([...checkedIngredients, name]);
+    } else {
+      setCheckedIngredients(checkedIngredients.filter((elem) => elem !== name));
+    }
+  };
 
   const getFoods = async () => {
-    // const getLocal = await JSON.parse(localStorage.getItem('inProgressRecipes'));
     await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id.match.params.id}`)
       .then((data) => data.json())
       .then((data) => setReturnApi(data));
-    // setReturnRecipes(getLocal);
     setLoaded(true);
+
+    let getLocal = await JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!getLocal || Object.keys(getLocal.meals).length === 0) {
+      getLocal = { cocktails: {}, meals: { [id.match.params.id]: [] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
+    } else {
+      const inProgressRecipes = {
+        ...getLocal,
+        meals: { ...getLocal.meals, [id.match.params.id]: checkedIngredients } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
   };
 
   useEffect(() => {
     getFoods();
-  }, []);
+    if (returnApi.length !== 0) {
+      setAllIngredients((Object.entries(returnApi.meals[0])
+        .filter((elem) => elem[0].includes('Ingredient')))
+        .filter((elem) => elem[1] !== null)
+        .filter((elem) => elem[1] !== ''));
+
+      if (checkedIngredients.length === allIngredients.length) {
+        console.log('habilitou');
+        setIsDisabled(false);
+      } else {
+        console.log(allIngredients);
+        console.log(checkedIngredients.length, allIngredients.length);
+        console.log('desabilitou');
+        setIsDisabled(true);
+      }
+    }
+  }, [checkedIngredients]);
 
   return (
     <div>
+
       {(loaded) && (
         <div>
-          {console.log(returnApi.meals[0])}
           <img
             src={ `${returnApi.meals[0].strMealThumb}` }
             alt="img"
@@ -31,8 +79,12 @@ export default function ComidasProgress(id) {
           <h1 data-testid="recipe-title">
             { returnApi.meals[0].strMeals }
           </h1>
-          <input data-testid="share-btn" type="image" src="" alt="test" />
-          <input data-testid="favorite-btn" type="image" src="" alt="test" />
+          <div>
+            <FavoriteButton apiRetur={ returnApi.meals } />
+          </div>
+          <div>
+            <ShareButton pathname={ `/comidas/${id.match.params.id}` } />
+          </div>
           <p data-testid="recipe-category">
             { returnApi.meals[0].strCategory }
           </p>
@@ -41,11 +93,21 @@ export default function ComidasProgress(id) {
             .map((elem, index) => {
               if (elem[1] !== null && elem[1] !== '') {
                 return (
-                  <p
-                    data-testid={ `${index}-ingredient-step` }
-                  >
-                    {`${elem[1]}`}
-                  </p>
+                  <div key={ index }>
+                    <label
+                      htmlFor="recipes"
+                      data-testid={ `${index}-ingredient-step` }
+                    >
+                      <input
+                        type="checkbox"
+                        name={ elem[1] }
+                        id={ `${index}-${elem[1]}` }
+                        onClick={ checkIngredient }
+                        checked={ (checkedIngredients).includes(elem[1]) }
+                      />
+                      {`${elem[1]}`}
+                    </label>
+                  </div>
                 );
               }
               return null;
@@ -53,7 +115,14 @@ export default function ComidasProgress(id) {
           <p data-testid="instructions">
             {returnApi.meals[0].strInstructions}
           </p>
-          <button data-testid="finish-recipe-btn" type="button"> </button>
+          <button
+            disabled={ isDisabled }
+            data-testid="finish-recipe-btn"
+            type="button"
+            onClick={ () => history.push('/receitas-feitas') }
+          >
+            Finalizar
+          </button>
         </div>
       )}
     </div>

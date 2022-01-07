@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createFavoriteLocalStorage } from '../services/CreateLocalStorages';
 import HeartButton from './HeartButton';
 
 export default function FavoriteButton(info) {
@@ -8,16 +9,17 @@ export default function FavoriteButton(info) {
   const { apiRetur } = info;
 
   const checkFavorite = async () => {
-    let favoriteLocal = await JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteLocal = await JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (!favoriteLocal || favoriteLocal.length === 0) {
-      favoriteLocal = [];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteLocal));
+      createFavoriteLocalStorage();
     }
     const id = apiRetur[0].idMeal || apiRetur[0].idDrink;
-    if (favoriteLocal.some((elem) => elem.id === id)) {
-      setFavorite(true);
-    } else {
-      setFavorite(false);
+    if (favoriteLocal !== null) {
+      if (favoriteLocal.some((elem) => elem.id === id)) {
+        setFavorite(true);
+      } else {
+        setFavorite(false);
+      }
     }
   };
 
