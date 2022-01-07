@@ -81,7 +81,7 @@ export default function BebidasProgress(id) {
           <h1 data-testid="recipe-title">
             { returnApi.drinks[0].strDrink }
           </h1>
-          <FavoriteButton apiRetur={ returnApi.drinks } />
+          <FavoriteButton dataTestId="favorite-btn" apiRetur={ returnApi.drinks } />
           <ShareButton
             dataTestid="share-btn"
             pathname={ `/bebidas/${id.match.params.id}` }

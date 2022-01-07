@@ -54,7 +54,7 @@ export default function BebidasId(id) {
           <h1 data-testid="recipe-title">{drinks[0].strDrink}</h1>
           <p data-testid="recipe-category">{drinks[0].strAlcoholic}</p>
           <ShareButton dataTestid="share-btn" pathname={ id.location.pathname } />
-          <FavoriteButton apiRetur={ responseDrinks.drinks } />
+          <FavoriteButton dataTestId="favorite-btn" apiRetur={ responseDrinks.drinks } />
           <div>
             <h3>Ingredientes</h3>
             {(Object.entries(drinks[0]).filter((elem) => elem[0].includes('Ingredient')

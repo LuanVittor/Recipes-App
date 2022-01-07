@@ -1,10 +1,95 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../components/Header';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 export default function ReceitasFavoritas() {
+  const [infoLocal, setInfoLocal] = useState([]);
+  const [infoToRender, setInfoToRender] = useState([]);
+  const [third, setThird] = useState(false);
+
+  useEffect(() => {
+    setInfoLocal((JSON.parse(localStorage.getItem('favoriteRecipes'))));
+    setInfoToRender((JSON.parse(localStorage.getItem('favoriteRecipes'))));
+  }, [third]);
+
+  const filterAll = () => {
+    setInfoToRender(infoLocal);
+  };
+
+  const filterFood = () => {
+    setInfoToRender(infoLocal.filter((elem) => elem.type === 'comida'));
+  };
+
+  const filterDrink = () => {
+    setInfoToRender(infoLocal.filter((elem) => elem.type === 'bebida'));
+  };
+
   return (
     <div>
       <Header />
+      <button
+        onClick={ () => filterAll() }
+        data-testid="filter-by-all-btn"
+        type="button"
+      >
+        All
+      </button>
+      <button
+        onClick={ () => filterFood() }
+        data-testid="filter-by-food-btn"
+        type="button"
+      >
+        Food
+      </button>
+      <button
+        onClick={ () => filterDrink() }
+        data-testid="filter-by-drink-btn"
+        type="button"
+      >
+        Drinks
+      </button>
+      {(infoToRender.length !== 0 && infoToRender !== undefined) && (
+        <div>
+          {infoToRender.map((elem, i) => (
+            <div key={ elem.id }>
+              <Link to={ `/${elem.type}s/${elem.id}` }>
+                <img
+                  src={ elem.image }
+                  alt={ elem.name }
+                  data-testid={ `${i}-horizontal-image` }
+                />
+                <p data-testid={ `${i}-horizontal-name` }>{ elem.name }</p>
+              </Link>
+              <p
+                data-testid={ `${i}-horizontal-top-text` }
+              >
+                { `${elem.area} - ${elem.category} - ${elem.alcoholicOrNot}` }
+              </p>
+              <FavoriteButton
+                third={ third }
+                setThird={ setThird }
+                dataTestId={ `${i}-horizontal-favorite-btn` }
+                apiRetur={ infoToRender }
+                index={ i }
+              />
+              <ShareButton
+                dataTestid={ `${i}-horizontal-share-btn` }
+                pathname={ `/${elem.type}s/${elem.id}` }
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
+
+// alcoholicOrNot: ""
+// area: "Turkish"
+// category: "Side"
+// id: "52977"
+// image: "https://www.themealdb.com/images/media/meals/58oia61564916529.jpg"
+// name: "Corba"
+// type: "comida"
