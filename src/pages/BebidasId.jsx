@@ -53,7 +53,7 @@ export default function BebidasId(id) {
           <img src={ drinks[0].strDrinkThumb } alt="Drink" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{drinks[0].strDrink}</h1>
           <p data-testid="recipe-category">{drinks[0].strAlcoholic}</p>
-          <ShareButton pathname={ id.location.pathname } />
+          <ShareButton dataTestid="share-btn" pathname={ id.location.pathname } />
           <FavoriteButton apiRetur={ responseDrinks.drinks } />
           <div>
             <h3>Ingredientes</h3>

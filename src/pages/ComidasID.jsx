@@ -47,7 +47,7 @@ export default function ComidasID(id) {
           <img src={ meals[0].strMealThumb } alt="Food" data-testid="recipe-photo" />
           <h1 data-testid="recipe-title">{meals[0].strMeal}</h1>
           <p data-testid="recipe-category">{meals[0].strCategory}</p>
-          <ShareButton pathname={ id.location.pathname } />
+          <ShareButton dataTestid="share-btn" pathname={ id.location.pathname } />
           <FavoriteButton apiRetur={ responseFood.meals } />
           <div>
             <h3>Ingredientes</h3>

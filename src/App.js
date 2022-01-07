@@ -18,6 +18,7 @@ import ApiProvider from './Provider/ApiProvider';
 import BebidasId from './pages/BebidasId';
 import ComidasProgress from './pages/ComidasProgress';
 import BebidasProgress from './pages/BebidasProgress';
+import './App.css';
 
 export default function App() {
   return (
