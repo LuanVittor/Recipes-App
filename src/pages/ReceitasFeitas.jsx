@@ -48,7 +48,7 @@ export default function ReceitasFeitas() {
       >
         Drinks
       </button>
-      {(infoToRender.length !== 0 && infoToRender !== null) && (
+      {(infoToRender !== null && infoToRender.length !== 0) && (
         <div>
           {infoToRender.map((elem, i) => (
             <div key={ elem.id }>
