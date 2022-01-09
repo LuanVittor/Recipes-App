@@ -53,7 +53,6 @@ export default function FavoriteButton(info) {
 
   return (
     <div>
-
       <HeartButton
         dataTestId={ info.dataTestId }
         addFavorite={ addFavorite }
