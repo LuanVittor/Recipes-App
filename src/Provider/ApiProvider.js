@@ -59,6 +59,9 @@ export default function ApiProvider({ children }) {
     } if (history.location.pathname === '/bebidas') {
       reqDrinkApi();
     }
+    if (history.location.pathname === '/explorar/comidas/area') {
+      reqFoodApi();
+    }
   };
 
   useEffect(() => {

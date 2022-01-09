@@ -19,6 +19,7 @@ import BebidasId from './pages/BebidasId';
 import ComidasProgress from './pages/ComidasProgress';
 import BebidasProgress from './pages/BebidasProgress';
 import './App.css';
+import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
@@ -49,6 +50,7 @@ export default function App() {
           <Route exact path="/explorar/comidas/area" component={ ExplorarComidasArea } />
           <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
           <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+          <Route exact path="/explorar/bebidas/area" component={ NotFound } />
         </Switch>
       </ApiProvider>
     </div>
