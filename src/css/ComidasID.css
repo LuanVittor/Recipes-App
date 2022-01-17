@@ -1,0 +1,90 @@
+.container-comidasID {
+  text-align: left;
+  border: solid rgba(0, 0, 0, 0);
+  background-color: white;
+  
+}
+
+.div {
+  background-color: white;
+}
+
+.comida-img {
+  display: block;
+  margin-left: 10px;
+  margin-right: auto;
+  border-radius: 5%;
+  margin-top: 2%;
+  width: 400px;
+  float: left;
+  padding: 10px;
+}
+
+.h1-title {
+  text-align: left;
+  margin-top: 2%;
+}
+
+.ingredient-measure {
+  margin: 10px;
+  /* flex-direction: column; */
+  /* flex-wrap: wrap; */
+}
+/* .comida-text {
+  text-align: left;
+  margin-top: 20px;
+} */
+
+.instructions-food {
+  margin-top: 20px;
+  /* border: 2px solid black; */
+  text-align: justify;
+  text-justify: inter-word;
+  /* width: 1550px;  */
+  margin-left: 20px;
+  margin-right: 20px;
+  overflow: auto;
+}
+
+.limit-container{
+  display: flex;
+  background-color: white;
+}
+
+.h3 {
+  margin-top: 20px;
+  margin-left: 20px;
+  display: inline-flex;
+}
+
+ .like-share {
+  display: inline-flex;
+  width: 40px;
+  margin: 0;
+}
+
+.list-ingredients {
+  border: 2px solid rgba(0, 0, 0, 0.10);
+  background-color: white;
+  border-radius: 1%;
+  height: 300px;
+  width: 600px;
+  /* margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  flex-wrap: wrap; */
+  margin-top: 10px;
+  overflow: auto;
+}
+
+/* .heart-btn { 
+  flex: 2;
+}
+
+.share-btn {
+  flex: 1;
+} */
+
+.h3-ing {
+  margin: 5px;
+}

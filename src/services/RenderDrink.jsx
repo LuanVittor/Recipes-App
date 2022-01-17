@@ -5,7 +5,7 @@ import ApiContext from '../Context/ApiContext';
 export default function RenderDrink() {
   const history = useHistory();
   const { returnApi } = useContext(ApiContext);
-  const TWELVE = 12;
+  const TWELVE = 24;
   if (!returnApi) {
     return null;
   } if (returnApi.length === 1) {
@@ -15,13 +15,23 @@ export default function RenderDrink() {
       if (index < TWELVE) {
         return (
           <Link to={ `/bebidas/${returnApi[index].idDrink}` }>
-            <div data-testid={ `${index}-recipe-card` } key={ index }>
+            <div
+              className="cards"
+              data-testid={ `${index}-recipe-card` }
+              key={ index }
+            >
               <img
+                className="img-card"
                 data-testid={ `${index}-card-img` }
                 src={ elem.strDrinkThumb }
                 alt="thumb"
               />
-              <h3 data-testid={ `${index}-card-name` }>{elem.strDrink}</h3>
+              <h3
+                className="card__title"
+                data-testid={ `${index}-card-name` }
+              >
+                {elem.strDrink}
+              </h3>
             </div>
           </Link>
         );

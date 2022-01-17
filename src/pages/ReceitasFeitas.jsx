@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
+import '../css/Buttons.css';
 
 export default function ReceitasFeitas() {
   const [infoLocal, setInfoLocal] = useState([]);
@@ -25,40 +26,51 @@ export default function ReceitasFeitas() {
   };
 
   return (
-    <div>
+    <div className="container">
       <Header />
-      <button
-        onClick={ () => filterAll() }
-        data-testid="filter-by-all-btn"
-        type="button"
-      >
-        All
-      </button>
-      <button
-        onClick={ () => filterFood() }
-        data-testid="filter-by-food-btn"
-        type="button"
-      >
-        Food
-      </button>
-      <button
-        onClick={ () => filterDrink() }
-        data-testid="filter-by-drink-btn"
-        type="button"
-      >
-        Drinks
-      </button>
+      <div className="navi-category">
+        <button
+          onClick={ () => filterAll() }
+          data-testid="filter-by-all-btn"
+          type="button"
+          className="category-button"
+        >
+          All
+        </button>
+        <button
+          onClick={ () => filterFood() }
+          data-testid="filter-by-food-btn"
+          type="button"
+          className="category-button"
+        >
+          Food
+        </button>
+        <button
+          onClick={ () => filterDrink() }
+          data-testid="filter-by-drink-btn"
+          type="button"
+          className="category-button"
+        >
+          Drinks
+        </button>
+      </div>
       {(infoToRender !== null && infoToRender.length !== 0) && (
         <div>
           {infoToRender.map((elem, i) => (
-            <div key={ elem.id }>
+            <div className="cards" key={ elem.id }>
               <Link to={ `/${elem.type}s/${elem.id}` }>
                 <img
                   src={ elem.image }
                   alt={ elem.name }
                   data-testid={ `${i}-horizontal-image` }
+                  className="img-card"
                 />
-                <p data-testid={ `${i}-horizontal-name` }>{ elem.name }</p>
+                <p
+                  className="card__title"
+                  data-testid={ `${i}-horizontal-name` }
+                >
+                  { elem.name }
+                </p>
               </Link>
               <p
                 data-testid={ `${i}-horizontal-top-text` }

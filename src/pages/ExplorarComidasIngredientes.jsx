@@ -5,7 +5,7 @@ import Header from '../components/Header';
 
 export default function ExplorarComidasIngredientes() {
   const [categories, setCategories] = useState([]);
-  const TWELVE = 12;
+  const TWELVE = 32;
 
   const fetchIngredientes = () => (
     fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
@@ -18,28 +18,39 @@ export default function ExplorarComidasIngredientes() {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <Header />
-      {console.log(categories)}
-      {(categories.length !== 0) && (
-        categories.map((elem, i) => {
-          if (i < TWELVE) {
-            return (
-              <Link to="/comidas">
-                <div data-testid={ `${i}-ingredient-card` } key={ i }>
-                  <img
-                    data-testid={ `${i}-card-img` }
-                    src={ `https://www.themealdb.com/images/ingredients/${elem.strIngredient}-Small.png` }
-                    alt="thumb"
-                  />
-                  <h3 data-testid={ `${i}-card-name` }>{ elem.strIngredient }</h3>
-                </div>
-              </Link>
-            );
-          }
-          return null;
-        })
-      )}
+      <div className="card-container-ing">
+        {(categories.length !== 0) && (
+          categories.map((elem, i) => {
+            if (i < TWELVE) {
+              return (
+                <Link to="/comidas">
+                  <div
+                    className="card cards"
+                    data-testid={ `${i}-ingredient-card` }
+                    key={ i }
+                  >
+                    <img
+                      className="img-card-ingredients-drink"
+                      data-testid={ `${i}-card-img` }
+                      src={ `https://www.themealdb.com/images/ingredients/${elem.strIngredient}-Small.png` }
+                      alt="thumb"
+                    />
+                    <h3
+                      className="card__title"
+                      data-testid={ `${i}-card-name` }
+                    >
+                      { elem.strIngredient }
+                    </h3>
+                  </div>
+                </Link>
+              );
+            }
+            return null;
+          })
+        )}
+      </div>
       <Footer />
     </div>
   );

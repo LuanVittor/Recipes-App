@@ -1,8 +1,8 @@
-.start-recipe {
+.progress-recipe {
   bottom: 0;
   position: fixed;
   left: 40%;
-  background-color: white; /* Green */
+  background-color: orange; /* Green */
   border: none;
   color: black;
   padding: 15px 1%;
@@ -18,7 +18,7 @@
   border-radius: 40px;
 }
 
-.start-recipe:hover {
-  background-color: orange; /* Green */
-  color: white;
+.progress-recipe:disabled {
+  background-color: white; /* Green */
+  color: black;
 }

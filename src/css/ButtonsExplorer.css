@@ -1,0 +1,32 @@
+.explore-button {
+  background-color: white; /* Green */
+  border: none;
+  color: black;
+  padding: 15px 1%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 40px;
+  transition-duration: 0.4s;
+  width: 100%;
+}
+
+.explore-button:hover {
+  background-color: orange; /* Green */
+  color: white;
+}
+
+
+.navi-explore {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  height: 85vh;
+}
+
+.navi-explore2 {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  height: 80vh;
+}

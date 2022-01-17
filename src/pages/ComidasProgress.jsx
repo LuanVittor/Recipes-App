@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import FavoriteButton from '../components/FavoriteButton';
 import ShareButton from '../components/ShareButton';
 import { createDOneLocalStorage } from '../services/CreateLocalStorages';
+import '../css/ReceitasProgress.css';
 
 function test(id) {
   const initialLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -63,71 +64,71 @@ export default function ComidasProgress(id) {
       if (checkedIngredients.length === allIngredients.length) {
         setIsDisabled(false);
       } else {
-        console.log(returnApi);
         setIsDisabled(true);
       }
     }
   }, [checkedIngredients]);
 
   return (
-    <div>
-
+    <div className="div">
       {(loaded) && (
-        <div>
+        <div className="container-comidasID">
           <img
             src={ `${returnApi.meals[0].strMealThumb}` }
             alt="img"
             data-testid="recipe-photo"
+            className="comida-img"
           />
-          <h1 data-testid="recipe-title">
-            { returnApi.meals[0].strMeals }
+          <h1 className="h1-title" data-testid="recipe-title">
+            { returnApi.meals[0].strMeal }
           </h1>
-          <div>
-            <FavoriteButton dataTestId="favorite-btn" apiRetur={ returnApi.meals } />
-          </div>
-          <div>
-            <ShareButton
-              dataTestid="share-btn"
-              pathname={ `/comidas/${id.match.params.id}` }
-            />
-          </div>
+          <FavoriteButton dataTestId="favorite-btn" apiRetur={ returnApi.meals } />
+          <ShareButton
+            dataTestid="share-btn"
+            pathname={ `/comidas/${id.match.params.id}` }
+          />
+
           <p data-testid="recipe-category">
             { returnApi.meals[0].strCategory }
           </p>
-          {(Object.entries(returnApi.meals[0])
-            .filter((elem) => elem[0].includes('Ingredient'))
-            .map((elem, index) => {
-              if (elem[1] !== null && elem[1] !== '') {
-                return (
-                  <div key={ index }>
-                    <label
-                      htmlFor="recipes"
-                      data-testid={ `${index}-ingredient-step` }
-                    >
-                      <input
-                        type="checkbox"
-                        name={ elem[1] }
-                        id={ `${index}-${elem[1]}` }
-                        onClick={ checkIngredient }
-                        checked={ (checkedIngredients).includes(elem[1]) }
-                      />
-                      {`${elem[1]}`}
-                    </label>
-                  </div>
-                );
-              }
-              return null;
-            }))}
-          <p data-testid="instructions">
+          <div className="list-ingredients">
+            {(Object.entries(returnApi.meals[0])
+              .filter((elem) => elem[0].includes('Ingredient'))
+              .map((elem, index) => {
+                if (elem[1] !== null && elem[1] !== '') {
+                  return (
+                    <div key={ index }>
+                      <label
+                        htmlFor="recipes"
+                        data-testid={ `${index}-ingredient-step` }
+                      >
+                        <input
+                          type="checkbox"
+                          className=".cbx"
+                          name={ elem[1] }
+                          id={ `${index}-${elem[1]}` }
+                          onClick={ checkIngredient }
+                          checked={ (checkedIngredients).includes(elem[1]) }
+                        />
+                        {`${elem[1]}`}
+                      </label>
+                    </div>
+                  );
+                }
+                return null;
+              }))}
+          </div>
+          <p className="instructions-food" data-testid="instructions">
             {returnApi.meals[0].strInstructions}
           </p>
           <button
+            className="progress-recipe"
             disabled={ isDisabled }
             data-testid="finish-recipe-btn"
             type="button"
             onClick={ () => clickButton() }
           >
-            Finalizar
+            Finish
           </button>
         </div>
       )}

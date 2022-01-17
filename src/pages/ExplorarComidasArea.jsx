@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import ApiContext from '../Context/ApiContext';
+import '../css/CustomSelect.css';
 
 export default function ExplorarComidasArea() {
   const [area, setArea] = useState([]);
@@ -27,23 +28,25 @@ export default function ExplorarComidasArea() {
   const renderOptions = () => {
     if (area.length !== 0) {
       return (
-        <select
-          value={ filter }
-          name="area"
-          data-testid="explore-by-area-dropdown"
-          onChange={ ({ target }) => setFilter(target.value) }
-        >
-          <option value="All" data-testid="All-option">All</option>
-          {area.map((elem, i) => (
-            <option
-              key={ i }
-              data-testid={ `${elem.strArea}-option` }
-              value={ elem.strArea }
-            >
-              { elem.strArea }
-            </option>
-          ))}
-        </select>
+        <div className="custom-select">
+          <select
+            value={ filter }
+            name="area"
+            data-testid="explore-by-area-dropdown"
+            onChange={ ({ target }) => setFilter(target.value) }
+          >
+            <option value="All" data-testid="All-option">All</option>
+            {area.map((elem, i) => (
+              <option
+                key={ i }
+                data-testid={ `${elem.strArea}-option` }
+                value={ elem.strArea }
+              >
+                { elem.strArea }
+              </option>
+            ))}
+          </select>
+        </div>
       );
     }
   };
@@ -57,13 +60,19 @@ export default function ExplorarComidasArea() {
             <Link
               to={ `/comidas/${returnApi[index].idMeal}` }
             >
-              <div data-testid={ `${index}-recipe-card` } key={ index }>
+              <div className="cards" data-testid={ `${index}-recipe-card` } key={ index }>
                 <img
+                  className="img-card"
                   data-testid={ `${index}-card-img` }
                   src={ elem.strMealThumb }
                   alt="thumb"
                 />
-                <h3 data-testid={ `${index}-card-name` }>{ elem.strMeal }</h3>
+                <h3
+                  className="card__title"
+                  data-testid={ `${index}-card-name` }
+                >
+                  { elem.strMeal }
+                </h3>
               </div>
             </Link>
           );
@@ -71,7 +80,6 @@ export default function ExplorarComidasArea() {
         return null;
       });
     }
-    console.log(apiFilter);
     if (apiFilter.length !== 0) {
       return (
         apiFilter.map((elem, i) => {
@@ -80,13 +88,19 @@ export default function ExplorarComidasArea() {
               <Link
                 to={ `/comidas/${apiFilter[i].idMeal}` }
               >
-                <div data-testid={ `${i}-recipe-card` } key={ i }>
+                <div className="cards" data-testid={ `${i}-recipe-card` } key={ i }>
                   <img
+                    className="img-card"
                     data-testid={ `${i}-card-img` }
                     src={ elem.strMealThumb }
                     alt="thumb"
                   />
-                  <h3 data-testid={ `${i}-card-name` }>{ elem.strMeal }</h3>
+                  <h3
+                    className="card__title"
+                    data-testid={ `${i}-card-name` }
+                  >
+                    { elem.strMeal }
+                  </h3>
                 </div>
               </Link>
             );

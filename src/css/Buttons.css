@@ -1,7 +1,4 @@
-.start-recipe {
-  bottom: 0;
-  position: fixed;
-  left: 40%;
+.category-button {
   background-color: white; /* Green */
   border: none;
   color: black;
@@ -12,13 +9,18 @@
   font-size: 20px;
   border: 2px solid white;
   transition-duration: 0.4s;
-  width: 200px;
-  border: solid 2px;
-  border-color: orange;
-  border-radius: 40px;
+  width: 100%;
 }
 
-.start-recipe:hover {
+.category-button:hover {
   background-color: orange; /* Green */
   color: white;
+}
+
+
+.navi-category {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

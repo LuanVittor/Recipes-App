@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import ApiContext from '../Context/ApiContext';
 import RenderDrink from '../services/RenderDrink';
+import '../css/Buttons.css';
 
 export default function Bebidas() {
   const { reqDrinkApi } = useContext(ApiContext);
@@ -38,13 +39,19 @@ export default function Bebidas() {
       if (index < TWELVE) {
         return (
           <Link to={ `/bebidas/${filterReturn[index].idDrink}` }>
-            <div data-testid={ `${index}-recipe-card` } key={ index }>
+            <div className="cards" data-testid={ `${index}-recipe-card` } key={ index }>
               <img
+                className="img-card"
                 data-testid={ `${index}-card-img` }
                 src={ elem.strDrinkThumb }
                 alt="thumb"
               />
-              <h3 data-testid={ `${index}-card-name` }>{ elem.strDrink }</h3>
+              <h3
+                className="card__title"
+                data-testid={ `${index}-card-name` }
+              >
+                { elem.strDrink }
+              </h3>
             </div>
           </Link>
         );
@@ -65,6 +72,7 @@ export default function Bebidas() {
         return (
           <button
             type="button"
+            className="category-button"
             onClick={ () => filterButton(elem.strCategory) }
             data-testid={ `${elem.strCategory}-category-filter` }
           >
@@ -77,17 +85,22 @@ export default function Bebidas() {
   };
 
   return (
-    <div>
+    <div className="container">
       <Header />
-      {renderButtons()}
-      <button
-        type="button"
-        onClick={ () => setFilterTrueOrFalse(false) }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      {filterTrueOrFalse ? renderFiltered() : RenderDrink()}
+      <div className="navi-category">
+        {renderButtons()}
+        <button
+          className="category-button"
+          type="button"
+          onClick={ () => setFilterTrueOrFalse(false) }
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
+      </div>
+      <div className="card-container">
+        {filterTrueOrFalse ? renderFiltered() : RenderDrink()}
+      </div>
       <Footer />
     </div>
   );

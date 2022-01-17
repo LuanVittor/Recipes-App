@@ -2,6 +2,7 @@ import clipboardCopy from 'clipboard-copy';
 import React, { useState } from 'react';
 
 import shareIcon from '../images/shareIcon.svg';
+import '../css/ComidasID.css';
 
 export default function ShareButton(rota) {
   const [clipboard, setClipBoard] = useState(false);
@@ -16,15 +17,16 @@ export default function ShareButton(rota) {
   };
 
   return (
-    <div>
+    <div className="like-share">
       <input
+        className="share-btn"
         alt="share"
         type="image"
         data-testid={ rota.dataTestid }
         src={ shareIcon }
         onClick={ () => shareButton() }
       />
-      {(clipboard) && <p>Link copiado!</p>}
+      {(clipboard) && alert('Link copied!')}
     </div>
   );
 }

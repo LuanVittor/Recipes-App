@@ -5,6 +5,7 @@ import '../css/IniciarReceita.css';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 import { createInProgressRecipes } from '../services/CreateLocalStorages';
+import '../css/ComidasID.css';
 
 export default function ComidasID(id) {
   const history = useHistory();
@@ -43,42 +44,65 @@ export default function ComidasID(id) {
   return (
     <div>
       {(responseFood.length === 0) ? null : (
-        <div>
-          <img src={ meals[0].strMealThumb } alt="Food" data-testid="recipe-photo" />
-          <h1 data-testid="recipe-title">{meals[0].strMeal}</h1>
-          <p data-testid="recipe-category">{meals[0].strCategory}</p>
-          <ShareButton dataTestid="share-btn" pathname={ id.location.pathname } />
-          <FavoriteButton dataTestId="favorite-btn" apiRetur={ responseFood.meals } />
-          <div>
-            <h3>Ingredientes</h3>
-            {(Object.entries(meals[0]).filter((elem) => elem[0].includes('Ingredient')
-            || elem[0].includes('Measure'))
-              .map((elem, index, arr) => {
-                if (elem[1] !== null && elem[1] !== '' && index < TWENTY) {
-                  return (
-                    <p
-                      data-testid={ `${index}-ingredient-name-and-measure` }
-                    >
-                      {`${elem[1]}-${arr[index + TWENTY][1]}`}
-                    </p>
-                  );
-                }
-                return null;
-              }))}
+        <div className="div">
+          <div className="container-comidasID">
+            <img
+              className="comida-img"
+              src={ meals[0].strMealThumb }
+              alt="Food"
+              data-testid="recipe-photo"
+            />
+            <h1 className="h1-title" data-testid="recipe-title">{meals[0].strMeal}</h1>
+            <p
+              className="comida-text"
+              data-testid="recipe-category"
+            >
+              {meals[0].strCategory}
+            </p>
+            <ShareButton dataTestid="share-btn" pathname={ id.location.pathname } />
+            <FavoriteButton dataTestId="favorite-btn" apiRetur={ responseFood.meals } />
+            <div className="list-ingredients">
+              <h3 className="h3-ing">Ingredients</h3>
+              {(Object.entries(meals[0]).filter((elem) => elem[0].includes('Ingredient')
+                || elem[0].includes('Measure'))
+                .map((elem, index, arr) => {
+                  if (elem[1] !== null && elem[1] !== '' && index < TWENTY) {
+                    return (
+                      <p
+                        className="ingredient-measure"
+                        data-testid={ `${index}-ingredient-name-and-measure` }
+                      >
+                        {`${elem[1]}-${arr[index + TWENTY][1]}`}
+                      </p>
+                    );
+                  }
+                  return null;
+                }))}
+            </div>
+            <p
+              className="instructions-food"
+              data-testid="instructions"
+            >
+              {meals[0].strInstructions}
+            </p>
+            {/* <iframe
+              src={ meals[0].strYoutube }
+              frameBorder="0"
+              data-testid="video"
+              allow="accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture"
+              allowFullScreen
+              title="video"
+            /> */}
           </div>
-          <p data-testid="instructions">{meals[0].strInstructions}</p>
-          <iframe
-            src={ meals[0].strYoutube }
-            frameBorder="0"
-            data-testid="video"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            title="video"
-          />
-          <div>
-            <h3>Recomendadas</h3>
-            <RecommendationsFood />
-          </div>
+
+          <h3 className="h3">Recommended Drinks</h3>
+          <RecommendationsFood />
+
           <button
             type="button"
             className="start-recipe"

@@ -1,0 +1,23 @@
+.footer {
+  overflow: hidden;
+  bottom: 0;
+  width: 100%;
+  /* position: relative; */
+  /* min-height: 150px; */
+}
+
+.navi-footer {
+  background-color: rgb(255, 136, 0);
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 60px;
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  width:100%;
+}

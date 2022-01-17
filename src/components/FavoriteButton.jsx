@@ -52,12 +52,11 @@ export default function FavoriteButton(info) {
   }, [favoritesUpdate]);
 
   return (
-    <div>
-      <HeartButton
-        dataTestId={ info.dataTestId }
-        addFavorite={ addFavorite }
-        favorite={ favorite }
-      />
-    </div>
+    <HeartButton
+      dataTestId={ info.dataTestId }
+      addFavorite={ addFavorite }
+      favorite={ favorite }
+    />
+
   );
 }

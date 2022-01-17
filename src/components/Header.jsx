@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import ApiContext from '../Context/ApiContext';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import '../css/Header.css';
 
 export default function Header() {
   const history = useHistory();
@@ -21,34 +22,36 @@ export default function Header() {
   );
 
   const completeHeader = (title) => (
-    <div>
-      <button type="button" onClick={ () => pushProfile() }>
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profile"
-        />
-      </button>
+    <div className="header-container-complete">
+      <input
+        type="image"
+        onClick={ () => pushProfile() }
+        data-testid="profile-top-btn"
+        src={ profileIcon }
+        alt="profile"
+      />
       <h1 data-testid="page-title">{title}</h1>
-      <button type="button" onClick={ () => setSerchBar(!searchBar) }>
-        <img
-          data-testid="search-top-btn"
-          src={ searchIcon }
-          alt="search"
-        />
-      </button>
+      <input
+        type="image"
+        onClick={ () => setSerchBar(!searchBar) }
+        data-testid="search-top-btn"
+        src={ searchIcon }
+        alt="search"
+        className="search-top-btn dropbtn"
+      />
     </div>
   );
 
   const inclompleteHeader = (title) => (
-    <div>
-      <button type="button" onClick={ () => pushProfile() }>
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profile"
-        />
-      </button>
+    <div className="header-container-incomplete">
+      <input
+        type="image"
+        className="profile-button"
+        onClick={ () => pushProfile() }
+        data-testid="profile-top-btn"
+        src={ profileIcon }
+        alt="profile"
+      />
       <h1 data-testid="page-title">{ title }</h1>
     </div>
   );
@@ -57,37 +60,37 @@ export default function Header() {
     const locationName = history.location.pathname;
     switch (locationName) {
     case '/comidas':
-      return completeHeader('Comidas');
+      return completeHeader('Foods');
 
     case '/explorar/comidas/area':
-      return completeHeader('Explorar Origem');
+      return completeHeader('Explore Origin');
 
     case '/bebidas':
-      return completeHeader('Bebidas');
+      return completeHeader('Drinks');
 
     case '/receitas-feitas':
-      return inclompleteHeader('Receitas Feitas');
+      return inclompleteHeader('Recipes Made');
 
     case '/receitas-favoritas':
-      return inclompleteHeader('Receitas Favoritas');
+      return inclompleteHeader('Favorite Recipes');
 
     case '/explorar/comidas':
-      return inclompleteHeader('Explorar Comidas');
+      return inclompleteHeader('Explore Foods');
 
     case '/explorar/bebidas/ingredientes':
-      return inclompleteHeader('Explorar Ingredientes');
+      return inclompleteHeader('Explore Ingredients');
 
     case '/explorar/comidas/ingredientes':
-      return inclompleteHeader('Explorar Ingredientes');
+      return inclompleteHeader('Explore Ingredients');
 
     case '/explorar/bebidas':
-      return inclompleteHeader('Explorar Bebidas');
+      return inclompleteHeader('Explore Drinks');
 
     case '/explorar':
-      return inclompleteHeader('Explorar');
+      return inclompleteHeader('Explore');
 
     case '/perfil':
-      return inclompleteHeader('Perfil');
+      return inclompleteHeader('Profile');
 
     default:
       return inclompleteHeader('');
@@ -104,56 +107,62 @@ export default function Header() {
   }, [radioValue, selectRadio]);
 
   return (
-    <header>
-      {renderHeader()}
-      {(searchBar)
-        && (
-          <div>
-            <input
-              data-testid="search-input"
-              onChange={ handleInput }
-              value={ searchInputValue }
-            />
-            <label htmlFor="Ingrediente">
-              Ingrediente
-              <input
-                type="radio"
-                value="Ingrediente"
-                data-testid="ingredient-search-radio"
-                name="radio"
-                onChange={ handleChange }
-              />
-            </label>
+    <header className="header">
+      <div className="header-box">
+        {renderHeader()}
+        {(searchBar)
+          && (
+            <div>
+              <div className="search">
+                <input
+                  placeholder="Pesquisa"
+                  className="search-input"
+                  data-testid="search-input"
+                  onChange={ handleInput }
+                  value={ searchInputValue }
+                />
+                <div className="radio">
+                  <input
+                    label="Ingrediente"
+                    className="search-radio"
+                    type="radio"
+                    value="Ingrediente"
+                    data-testid="ingredient-search-radio"
+                    name="radio"
+                    onChange={ handleChange }
+                  />
 
-            <label htmlFor="Nome">
-              Nome
-              <input
-                type="radio"
-                value="Nome"
-                data-testid="name-search-radio"
-                name="radio"
-                onChange={ handleChange }
-              />
-            </label>
-            <label htmlFor="Primeira Letra">
-              Primeira Letra
-              <input
-                type="radio"
-                value="Primeira Letra"
-                data-testid="first-letter-search-radio"
-                name="radio"
-                onChange={ handleChange }
-              />
-            </label>
-            <button
-              type="button"
-              onClick={ getPathName }
-              data-testid="exec-search-btn"
-            >
-              Buscar
-            </button>
-          </div>
-        )}
+                  <input
+                    label="Nome"
+                    className="search-radio"
+                    type="radio"
+                    value="Nome"
+                    data-testid="name-search-radio"
+                    name="radio"
+                    onChange={ handleChange }
+                  />
+
+                  <input
+                    label="Primeira Letra"
+                    type="radio"
+                    value="Primeira Letra"
+                    data-testid="first-letter-search-radio"
+                    name="radio"
+                    onChange={ handleChange }
+                  />
+                  <button
+                    type="button"
+                    className="search-btn"
+                    onClick={ getPathName }
+                    data-testid="exec-search-btn"
+                  >
+                    Search
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+      </div>
     </header>
   );
 }

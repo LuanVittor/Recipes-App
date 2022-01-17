@@ -1,0 +1,9 @@
+select{
+  height: 50px;
+  font-size: 20px;
+  background: white;
+  padding-left: 100px;
+  border: solid 5px orange;
+  width: 50%;
+  right: auto;
+}

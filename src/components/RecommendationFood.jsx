@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../css/ComidasID.css';
 
 export default function RecommendationsFood() {
   const SIX = 6;
@@ -15,19 +16,25 @@ export default function RecommendationsFood() {
   }, []);
 
   return (
-    <div>
+    <div className="limit-container">
       {(recommendations.length === 0) ? null : (
         recommendations.drinks.map((elem, i) => {
           if (i < SIX) {
             const INDEX2 = i < 2;
             return (
               <div
+                className="cards"
                 data-testid={ `${i}-recomendation-card` }
                 key={ i }
                 style={ { display: INDEX2 ? 'block' : 'none' } }
               >
-                <img src={ elem.strDrinkThumb } alt="Drink" />
-                <h1 data-testid={ `${i}-recomendation-title` }>{elem.strDrink}</h1>
+                <img className="img-card" src={ elem.strDrinkThumb } alt="Drink" />
+                <h1
+                  className="card__title"
+                  data-testid={ `${i}-recomendation-title` }
+                >
+                  {elem.strDrink}
+                </h1>
               </div>
             );
           }

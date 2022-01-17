@@ -72,13 +72,14 @@ export default function BebidasProgress(id) {
   return (
     <div>
       {(loaded) && (
-        <div>
+        <div className="container-comidasID">
           <img
             src={ `${returnApi.drinks[0].strDrinkThumb}` }
             alt="img"
             data-testid="recipe-photo"
+            className="comida-img"
           />
-          <h1 data-testid="recipe-title">
+          <h1 className="h1-title" data-testid="recipe-title">
             { returnApi.drinks[0].strDrink }
           </h1>
           <FavoriteButton dataTestId="favorite-btn" apiRetur={ returnApi.drinks } />
@@ -89,40 +90,43 @@ export default function BebidasProgress(id) {
           <p data-testid="recipe-category">
             { returnApi.drinks[0].strCategory }
           </p>
-          {(Object.entries(returnApi.drinks[0])
-            .filter((elem) => elem[0].includes('Ingredient'))
-            .map((elem, index) => {
-              if (elem[1] !== null && elem[1] !== '') {
-                return (
-                  <div key={ index }>
-                    <label
-                      htmlFor="recipes"
-                      data-testid={ `${index}-ingredient-step` }
-                    >
-                      <input
-                        type="checkbox"
-                        name={ elem[1] }
-                        id={ `${index}-${elem[1]}` }
-                        onClick={ checkIngredient }
-                        checked={ (checkedIngredients).includes(elem[1]) }
-                      />
-                      {`${elem[1]}`}
-                    </label>
-                  </div>
-                );
-              }
-              return null;
-            }))}
+          <div className="list-ingredients">
+            {(Object.entries(returnApi.drinks[0])
+              .filter((elem) => elem[0].includes('Ingredient'))
+              .map((elem, index) => {
+                if (elem[1] !== null && elem[1] !== '') {
+                  return (
+                    <div key={ index }>
+                      <label
+                        htmlFor="recipes"
+                        data-testid={ `${index}-ingredient-step` }
+                      >
+                        <input
+                          type="checkbox"
+                          name={ elem[1] }
+                          id={ `${index}-${elem[1]}` }
+                          onClick={ checkIngredient }
+                          checked={ (checkedIngredients).includes(elem[1]) }
+                        />
+                        {`${elem[1]}`}
+                      </label>
+                    </div>
+                  );
+                }
+                return null;
+              }))}
+          </div>
           <p data-testid="instructions">
             {returnApi.drinks[0].strInstructions}
           </p>
           <button
+            className="progress-recipe"
             disabled={ isDisabled }
             data-testid="finish-recipe-btn"
             type="button"
             onClick={ () => clickButton() }
           >
-            Finalizar
+            Finish
           </button>
         </div>
       )}

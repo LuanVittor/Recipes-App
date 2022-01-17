@@ -49,13 +49,23 @@ export default function BebidasId(id) {
   return (
     <div>
       {(responseDrinks.length !== 0 && responseDrinks) && (
-        <div>
-          <img src={ drinks[0].strDrinkThumb } alt="Drink" data-testid="recipe-photo" />
-          <h1 data-testid="recipe-title">{drinks[0].strDrink}</h1>
-          <p data-testid="recipe-category">{drinks[0].strAlcoholic}</p>
+        <div className="container-comidasID">
+          <img
+            className="comida-img"
+            src={ drinks[0].strDrinkThumb }
+            alt="Drink"
+            data-testid="recipe-photo"
+          />
+          <h1 className="h1-title" data-testid="recipe-title">{drinks[0].strDrink}</h1>
+          <p
+            className="comida-text"
+            data-testid="recipe-category"
+          >
+            {drinks[0].strAlcoholic}
+          </p>
           <ShareButton dataTestid="share-btn" pathname={ id.location.pathname } />
           <FavoriteButton dataTestId="favorite-btn" apiRetur={ responseDrinks.drinks } />
-          <div>
+          <div className="list-ingredients">
             <h3>Ingredientes</h3>
             {(Object.entries(drinks[0]).filter((elem) => elem[0].includes('Ingredient')
             || elem[0].includes('Measure'))
@@ -63,6 +73,7 @@ export default function BebidasId(id) {
                 if (elem[1] !== null && elem[1] !== '' && index < FIFTEEN) {
                   return (
                     <p
+                      className="ingredient-measure"
                       data-testid={ `${index}-ingredient-name-and-measure` }
                     >
                       {`${elem[1]}-${arr[index + FIFTEEN][1]}`}
@@ -72,11 +83,15 @@ export default function BebidasId(id) {
                 return null;
               }))}
           </div>
-          <p data-testid="instructions">{drinks[0].strInstructions}</p>
-          <div>
-            <h3>Recomendadas</h3>
-            <RecommendationDrink />
-          </div>
+          <p
+            className="instructions-food"
+            data-testid="instructions"
+          >
+            {drinks[0].strInstructions}
+          </p>
+          <h3 className="h3">Recomendadas</h3>
+          <RecommendationDrink />
+
           <button
             type="button"
             className="start-recipe"

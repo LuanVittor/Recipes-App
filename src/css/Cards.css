@@ -1,0 +1,201 @@
+/* *,
+*::before,
+*::after {
+  box-sizing: border-box;
+} */
+.container {
+  flex-direction: column;
+
+  background-color: rgb(216, 216, 216);
+	background-size: cover;
+	background-position: top;
+	background-repeat: no-repeat;
+	/* display: inline-block;
+  flex-direction: row; */
+	/* align-items: center;
+	justify-content: center; */
+	min-height: 100vh;
+	min-width: 100vw;
+  margin: 0;
+  overflow: auto;
+}
+
+/* .cards {
+  display: inline-block;
+  justify-content: space-between;
+  width: 125px;  
+  padding: 20px ;
+  border-radius: 10px;
+} */
+
+.cards {
+  display: inline-block;
+  list-style: none;
+  margin-left: 20px;
+  margin-right: 17px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+
+  width: 200px;
+  /* padding: 5px ; */
+  /* justify-content: space-between; */
+  background-color: white;
+  /* border:1px solid #bfbfbf; */
+  border-radius: 5%;
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.38);
+  /* display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row; */
+  /* overflow: hidden; */
+}
+.card-container{
+  width:1920px;
+  height: 77vh;
+  overflow: auto;
+}
+
+.card-container-ing{
+  width:1920px;
+  height: 83vh;
+  overflow: auto;
+}
+.card__title {
+  height: 25px;
+  width: 200px;
+  overflow: hidden;
+  color: #696969;
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.img-card {
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: 5% 5% 0 0;
+}
+
+.img-card-ingredients-drink {
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 10px;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: 5% 5% 0 0;
+}
+
+.cards:hover {
+  -webkit-filter: contrast(125%);
+          filter: contrast(125%);
+  background-color: orange;
+}
+
+.limit-container .cards {
+  display: flex;
+}
+
+/* html {
+  background-color: #f5f5f5;
+}
+body {
+  color: #999999;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  margin:0;
+  padding: 1rem;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga" on;
+} */
+
+/*
+.btn {
+  background-color: white;
+  border: 1px solid #cccccc;
+  color: #696969;
+  padding: 0.5rem;
+  text-transform: lowercase;
+}
+.btn--block {
+  display: block;
+  width: 100%;
+}
+.cards__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1rem;
+}
+.card {
+  background-color: white;
+  border:1px solid #bfbfbf;
+  border-radius: 0.25rem;
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.38);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+}
+.card__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1rem;
+}
+.card__image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  -webkit-filter: contrast(70%);
+          filter: contrast(70%);
+  overflow: hidden;
+  position: relative;
+  -webkit-transition: -webkit-filter 0.5s cubic-bezier(0.43, 0.41, 0.22, 0.91);
+  transition: -webkit-filter 0.5s cubic-bezier(0.43, 0.41, 0.22, 0.91);
+  transition: filter 0.5s cubic-bezier(0.43, 0.41, 0.22, 0.91);
+  transition: filter 0.5s cubic-bezier(0.43, 0.41, 0.22, 0.91), -webkit-filter 0.5s cubic-bezier(0.43, 0.41, 0.22, 0.91);
+}
+.card__image::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%;
+}
+.card__image--flowers {
+  background-image: url(https://unsplash.it/800/600?image=82);
+}
+
+.card__text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+} */
+

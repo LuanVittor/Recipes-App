@@ -5,7 +5,7 @@ import ApiContext from '../Context/ApiContext';
 export default function RenderFood() {
   const history = useHistory();
   const { returnApi } = useContext(ApiContext);
-  const TWELVE = 12;
+  const TWELVE = 24;
   if (!returnApi) {
     return null;
   } if (returnApi.length === 1) {
@@ -15,13 +15,19 @@ export default function RenderFood() {
       if (index < TWELVE) {
         return (
           <Link to={ `/comidas/${returnApi[index].idMeal}` } key={ index }>
-            <div data-testid={ `${index}-recipe-card` }>
+            <div className="cards" data-testid={ `${index}-recipe-card` }>
               <img
+                className="img-card"
                 data-testid={ `${index}-card-img` }
                 src={ elem.strMealThumb }
                 alt="thumb"
               />
-              <h3 data-testid={ `${index}-card-name` }>{elem.strMeal}</h3>
+              <h3
+                className="card__title"
+                data-testid={ `${index}-card-name` }
+              >
+                {elem.strMeal}
+              </h3>
             </div>
           </Link>
         );

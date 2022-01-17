@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import '../css/ButtonsExplorer.css';
 
 export default function ButtonsExplore(foodOrDrink) {
   const history = useHistory();
@@ -17,30 +18,33 @@ export default function ButtonsExplore(foodOrDrink) {
   };
 
   return (
-    <div>
+    <div className="navi-explore">
       <button
+        className="explore-button"
         type="button"
         data-testid="explore-by-ingredient"
         onClick={ () => history.push(`/explorar/${foodOrDrink.type}/ingredientes`) }
       >
-        Por Ingredientes
+        By Ingredients
       </button>
       {(foodOrDrink.type === 'comidas') && (
         <button
+          className="explore-button"
           type="button"
           data-testid="explore-by-area"
           onClick={ () => history.push(`/explorar/${foodOrDrink.type}/area`) }
 
         >
-          Por Local de Origem
+          By Place of Origin
         </button>
       )}
       <button
+        className="explore-button"
         type="button"
         data-testid="explore-surprise"
         onClick={ () => surpriseMe() }
       >
-        Me Surpreenda!
+        Surprise me!
       </button>
     </div>
   );

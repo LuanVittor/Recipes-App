@@ -4,6 +4,9 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import ApiContext from '../Context/ApiContext';
 import RenderFood from '../services/RenderFood';
+import '../css/Cards.css';
+import '../css/Buttons.css';
+import '../css/Header.css';
 
 export default function Comidas() {
   const { reqFoodApi } = useContext(ApiContext);
@@ -36,15 +39,26 @@ export default function Comidas() {
       if (index < TWELVE) {
         return (
           <Link
+            className="card"
             to={ `/comidas/${filterReturn[index].idMeal}` }
           >
-            <div data-testid={ `${index}-recipe-card` } key={ index }>
+            <div
+              className="card cards"
+              data-testid={ `${index}-recipe-card` }
+              key={ index }
+            >
               <img
                 data-testid={ `${index}-card-img` }
                 src={ elem.strMealThumb }
                 alt="thumb"
+                className="img-card"
               />
-              <h3 data-testid={ `${index}-card-name` }>{ elem.strMeal }</h3>
+              <h3
+                className="card__title"
+                data-testid={ `${index}-card-name` }
+              >
+                { elem.strMeal }
+              </h3>
             </div>
           </Link>
         );
@@ -59,32 +73,38 @@ export default function Comidas() {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <Header />
-      {categories.map((elem, i) => {
-        const FIVE = 5;
-        if (i < FIVE) {
-          return (
-            <button
-              key={ i }
-              type="button"
-              onClick={ () => filterButton(elem.strCategory) }
-              data-testid={ `${elem.strCategory}-category-filter` }
-            >
-              { elem.strCategory }
-            </button>
-          );
-        }
-        return null;
-      })}
-      <button
-        type="button"
-        onClick={ () => setFilterTrueOrFalse(false) }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      {filterTrueOrFalse ? renderFiltered() : RenderFood()}
+      <div className="navi-category">
+        {categories.map((elem, i) => {
+          const FIVE = 5;
+          if (i < FIVE) {
+            return (
+              <button
+                key={ i }
+                type="button"
+                onClick={ () => filterButton(elem.strCategory) }
+                data-testid={ `${elem.strCategory}-category-filter` }
+                className="category-button"
+              >
+                { elem.strCategory }
+              </button>
+            );
+          }
+          return null;
+        })}
+        <button
+          type="button"
+          onClick={ () => setFilterTrueOrFalse(false) }
+          data-testid="All-category-filter"
+          className="category-button"
+        >
+          All
+        </button>
+      </div>
+      <div className="card-container">
+        {filterTrueOrFalse ? renderFiltered() : RenderFood()}
+      </div>
       <Footer />
     </div>
   );

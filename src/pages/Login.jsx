@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import '../css/LoginPage.css';
 
 export default function Login({ history }) {
   const [emailValue, setEmailValue] = useState('');
@@ -38,31 +39,37 @@ export default function Login({ history }) {
   }, [emailValue, passowordValue]);
 
   return (
-    <div>
-      <input
-        placeholder="email"
-        name="email"
-        value={ emailValue }
-        onChange={ handleChange }
-        type="email"
-        data-testid="email-input"
-      />
-      <input
-        placeholder="password"
-        name="password"
-        value={ passowordValue }
-        onChange={ handleChangePassword }
-        type="password"
-        data-testid="password-input"
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        onClick={ () => clickButton() }
-        disabled={ buttonON }
-      >
-        Logar
-      </button>
+    <div className="gambiarra">
+      <div className="login-page">
+        <h1 className="Text">APP de Receitas</h1>
+        <div className="form">
+          <input
+            placeholder="email"
+            name="email"
+            value={ emailValue }
+            onChange={ handleChange }
+            type="email"
+            data-testid="email-input"
+          />
+          <input
+            placeholder="password"
+            name="password"
+            value={ passowordValue }
+            onChange={ handleChangePassword }
+            type="password"
+            data-testid="password-input"
+          />
+          <button
+            className="login-form"
+            type="button"
+            data-testid="login-submit-btn"
+            onClick={ () => clickButton() }
+            disabled={ buttonON }
+          >
+            Login
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
