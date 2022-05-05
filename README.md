@@ -8,7 +8,8 @@ Abordando sobre conceitos de integração com duas API para disponibilizar dados
 
 ## Video da Aplicacao:
 
-[![Video]](https://www.youtube.com/embed/Q7OK1ZuPYhk)
+No link abaixo vc pode ver a aplicacao em funcionamento!
+[Link](https://www.youtube.com/embed/Q7OK1ZuPYhk)
 
 ## Tecnologias utilizadas:
 
